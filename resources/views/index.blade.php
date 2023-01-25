@@ -9,63 +9,76 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
 </head>
-<body>
-    <div class="container-lg">
+
+<body class=" bg-info">
+    <div class="container-lgr">
         <div class="row m-5">
-            <div class="col-md-8 mx-auto p-5 border shadow rounded">
-                <h1 class="fw-bold">💌 Todo list</h1>
+            <div class="col-md-8 mx-auto p-5  border bg-light shadow-lg rounded">
+                <h1 class="fw-bold">💌 <span class="border-bottom border-5 mb-3 border-info "> Todo list </span></h1>
                 @if (session('success'))
-                    <div class="alert alert-primary">{{ session('success') }}</div>
+                    <div class="mt-4 alert alert-info">{{ session('success') }}</div>
                 @endif
 
                 <form action="{{ route('createtodo') }}" method="POST">
                     @csrf
                     <div class="row my-4">
-                        <div class="col-11">
-                            <input class="form-control" type="text" placeholder="Write a new task here..."
-                                name="description" required>
-                        </div>
-                        <div class="col-1 d-flex">
-                            <button class="btn btn-primary" type="submit">→</button>
+                        <div class="col-11 m-2">
+                            <div class="input-group input-group-lg">
+                                <input class="form-control shadow-sm" type="text"
+                                    placeholder="Write a new task here..." name="description" required>
+                                <div class="ms-3 d-flex">
+                                    <button class="btn btn-info text-light shadow-sm" type="submit">→</button>
+                                </div>
+                            </div>
+
                         </div>
                     </div>
                 </form>
+
+
                 <table class="table p-5">
-                    <thead>
+                    <thead class="">
                         <tr>
                             <th>Description</th>
                             <th>Status</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
-                    <tbody>   
-                        @if (count($todos) > 0  )                                                                                               
-                        @foreach ($todos as $todo)                                          
-                            <tr>                                                          
-                                <td>{{ $todo->description }}</td>
-                                <td>
-                                    @if ($todo->status == 'pending')
-                                        <span class="badge text-bg-light">Pending</span>
-                                    @else
-                                        <span class="badge text-bg-success">Completed</span>
-                                    @endif
-                                </td>
-                                <td>
-                                    @if ($todo->status == 'pending')
-                                        <a href="{{ route('updatetodo', $todo->id) }}"
-                                            class="btn btn-primary">√</button>
+                    <tbody class="table-group-divider">
+                        @if (count($todos) > 0)
+                            @foreach ($todos as $todo)
+                                <tr>
+                                    <td>{{ $todo->description }}</td>
+                                    <td>
+                                        @if ($todo->status == 'pending')
+                                            <span class="badge text-bg-light">Pending</span>
                                         @else
-                                    @endif
-                                    <a href="{{ route('deletetodo', $todo->id) }}" class="btn btn-danger">⨉</button>
-                                </td>
-                            </tr>                         
-                        @endforeach
-                        @else                
-                            <td colspan="6" class="text-center"> <h3 class="fw-bold">No Records</h3></td>                   
-                        @endif                     
+                                            <span class="badge text-bg-info">Completed</span>
+                                        @endif
+                                    </td>
+                                    <td>
+                                        @if ($todo->status == 'pending')
+                                            <a href="{{ route('updatetodo', $todo->id) }}"class="btn btn-info text-white btn-sm">√</button>
+                                            @else
+                                        @endif
+                                        <a href="{{ route('deletetodo', $todo->id) }}"class="btn btn-danger btn-sm mx-1">⨉</button>
+                                    </td>
+                                </tr>
+                            @endforeach
+                        @else
+                            <td colspan="6" class="text-center">
+                                <h3 class="fw-bold">No Records</h3>
+                            </td>
+                        @endif
                     </tbody>
+
+
                 </table>
-                <a href="{{ route('about') }}">Go to About</a>
+                <div class="col text-center mt-5">
+                    <h6> Developed by: <span class="fw-bold"> Raymart <span></h6>
+                    <a class="text-center" href="{{ route('about') }}"><span class="text-info"> Go to About</span></a>
+                </div>
+
             </div>
         </div>
     </div>
