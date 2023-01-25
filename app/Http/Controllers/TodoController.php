@@ -24,12 +24,12 @@ class TodoController extends Controller
         $todo->status = 'completed';
         $todo->save();
         
-        return redirect()->route('index')->with('sucess', 'Todo updated');
+        return redirect()->route('index')->with('success', 'Todo updated');
     }
 
     public function delete($id) {
         $todo = Todo::find($id);
         $todo->delete();
-        return redirect()->route('index')->with('sucess', 'Todo deleted');
+        return redirect()->route('index')->with('success', 'Todo deleted');
     }
 }
